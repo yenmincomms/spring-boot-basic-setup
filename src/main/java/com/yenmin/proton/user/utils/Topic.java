@@ -15,7 +15,7 @@ package com.yenmin.proton.user.utils;
  */
 public enum Topic {
 
-	USER("User", 101);
+	USER("User", 200);
 
 	private final String name;
 

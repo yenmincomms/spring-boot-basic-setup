@@ -14,7 +14,6 @@ package com.yenmin.proton.user.exceptions;
  * 
  */
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,11 +27,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
+public class ProtonExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private String INCORRECT_REQUEST = "INCORRECT_REQUEST";
 	private String BAD_REQUEST = "BAD_REQUEST";
-	private String CONFLICT = "CONFLICT";
 
 	@ExceptionHandler(RecordNotFoundException.class)
 	public final ResponseEntity<ErrorResponse> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
@@ -58,10 +56,5 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
-	@ExceptionHandler(CustomDataIntegrityViolationException.class)
-	public final ResponseEntity<ErrorResponse> dataIntegrityViolationException(CustomDataIntegrityViolationException ex, WebRequest request) {
-		String[] detail = ex.getLocalizedMessage().split("Detail: Key ");
-		ErrorResponse error = new ErrorResponse(CONFLICT, Arrays.asList(detail));
-		return new ResponseEntity<>(error, HttpStatus.CONFLICT);
-	}
+	
 }

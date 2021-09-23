@@ -34,7 +34,6 @@ import lombok.Data;
 @Document(collection = "pt_users")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "password", "lastModifiedBy", "lastModifiedDate", "createdBy", "createdDate" })
-
 public class User {
 
 	@Transient
@@ -64,7 +63,6 @@ public class User {
 	private boolean status;
 	private boolean firstLogin;
 	private String password;
-	private String confirmPassword;
 	private Date lastLogin;
 	private Object meta;
 	private Object setting;
@@ -88,7 +86,6 @@ public class User {
 		this.lastName = signUpRequest.getLastName();
 		this.email = signUpRequest.getEmail();
 		this.password = signUpRequest.getPassword();
-		this.confirmPassword = signUpRequest.getConfirmPassword();
 		this.address = signUpRequest.getAddress();
 		this.designation = signUpRequest.getDesignation();
 		this.mobileNo = signUpRequest.getMobileNo();
@@ -96,6 +93,5 @@ public class User {
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 }

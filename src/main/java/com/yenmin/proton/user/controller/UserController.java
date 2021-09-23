@@ -32,38 +32,37 @@ import com.yenmin.proton.user.service.UserService;
  */
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/proton/v2")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	@PostMapping(value = { "/signup" })
-	public ResponseEntity<BaseResponse> createUser(@RequestBody SignUpRequest signUpRequest) {
-		BaseResponse response = userService.createUser(signUpRequest);
+	@PostMapping(value = { "/userCreate" })
+	public ResponseEntity<BaseResponse> createOrUpdateEmployee(@RequestBody SignUpRequest signUpRequest) {
+		BaseResponse response = userService.signup(signUpRequest);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/update-user")
-	public ResponseEntity<BaseResponse> updateUser(@RequestBody UserUpdateRequest userUpdate) {
+	@PutMapping("/userUpdate")
+	public ResponseEntity<BaseResponse> updateEmployee(@RequestBody UserUpdateRequest userUpdate) {
 		BaseResponse response = userService.updateUser(userUpdate);
 		return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
 	}
 
-	@GetMapping("/user-list")
+	@GetMapping("/getUserList")
 	public ResponseEntity<Object> userList(@RequestParam(defaultValue = "0", required = false) int page,
 			@RequestParam(defaultValue = "10", required = false) int size) {
-		return userService.userList(page, size);
+		return userService.getUserList(page, size);
 	}
 
-	@GetMapping("/user-detail/{id}")
-	public ResponseEntity<Object> userDetail(@PathVariable String id) {
-		return userService.userDetail(id);
+	@GetMapping("/getUserDetails/{id}")
+	public ResponseEntity<Object> getUser(@PathVariable String id) {
+		return userService.getUserDetail(id);
 	}
-
-	@DeleteMapping("/user-delete/{id}")
+	@DeleteMapping("/userDelete/{id}")
 	public BaseResponse deleteUser(@PathVariable String id) {
-		return userService.deleteUser(id);
+		return userService.deleteUserDetail(id);
 	}
 
 }
